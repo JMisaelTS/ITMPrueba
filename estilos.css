@@ -51,10 +51,11 @@ body{
     display: none;
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width:550px){
     .encabezado__logo{
         width: 10%;
         min-width: 25px;
+        max-width: 35px;
         background-color: #000;
     }
     .encabezado__icono {

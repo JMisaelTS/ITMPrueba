@@ -9,6 +9,8 @@
 
 .hamburger-box {
   width: 40px;
+  outline: none;
+  padding: 5vw 5vw;
   display: inline-block;
   position: relative; }
 

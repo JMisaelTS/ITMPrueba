@@ -35,22 +35,10 @@ boton.addEventListener("click",()=>{
     hamburguesa.classList.toggle("is-active")
 })
 //activa la ventana blanca emergente
-
 somos.addEventListener("click",()=>{activar_ventana("#submenu1","#sub1","#fondo1")})
 estudiantes.addEventListener("click",()=>{activar_ventana("#submenu2","#sub2","#fondo2")})
 personal.addEventListener("click",()=>{activar_ventana("#submenu3","#sub3","#fondo3")})
 egresados.addEventListener("click",()=>{activar_ventana("#submenu4","#sub4","#fondo4")})
-
-function activar_ventana(id_contenido,id_ventana,id_fondo) {
-    let cuerpo=document.querySelector(id_contenido)
-    let cuerpo_blanco=document.querySelector(id_ventana)
-    let fondo_negro=document.querySelector(id_fondo)
-    cuerpo.style.visibility="visible"
-    fondo_negro.style.visibility="visible"
-    fondo_negro.style.background="rgba(0,0,0,.3)"
-    menuDesactivado=false
-    cuerpo_blanco.style.top="12vh"
-}
 
 //desactiva ventana blanca emergente
 regreso_somos.addEventListener("click",()=>{desactivar_ventana("#submenu1","#sub1","#fondo1")})
@@ -81,7 +69,6 @@ slide_egresados.addEventListener('touchmove', function(event){toque_movimiento(e
 slide_egresados.addEventListener('touchend', function (event) {toque_final(event,"#submenu4","#sub4","#fondo4")})
 
 function toque_inicial(event,cuerpo_blanco) {
-    console.log("hola")
     inicio_slide1=event.touches[0].clientY 
     document.getElementById(cuerpo_blanco).style.transition='none'
 }
@@ -98,14 +85,23 @@ function toque_movimiento(event,cuerpo_blanco) {
 function toque_final(event,contenido,ventana,fondo) {
     let cambio = event.changedTouches[0].clientY-inicio_slide1
     let parte = screen.height/3
-    console.log(cambio)
-    console.log(parte)
     if(cambio<parte){
         document.querySelector(ventana).style.transition='all .3s'
         document.querySelector(ventana).style.top='12%'
     }else{
         desactivar_ventana(contenido,ventana,fondo)
     }
+}
+
+function activar_ventana(id_contenido,id_ventana,id_fondo) {
+    let cuerpo=document.querySelector(id_contenido)
+    let cuerpo_blanco=document.querySelector(id_ventana)
+    let fondo_negro=document.querySelector(id_fondo)
+    cuerpo.style.visibility="visible"
+    fondo_negro.style.visibility="visible"
+    fondo_negro.style.background="rgba(0,0,0,.3)"
+    menuDesactivado=false
+    cuerpo_blanco.style.top="12vh"
 }
 
 function desactivar_ventana(id_contenido,id_ventana,id_fondo) {
