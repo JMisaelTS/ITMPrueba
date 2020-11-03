@@ -103,7 +103,7 @@ body{
         position: fixed;
         visibility: hidden;
         top: 0;
-        background: transparent;
+        background:rgba(0,0,0,.4);
         width: 100vw;
         height: 100vh;
         transition: all .1s ease;
@@ -111,7 +111,7 @@ body{
     .encabezado__cuerpo__contenedor{
         position: fixed;
         background: white;
-        top: 5%;
+        bottom: 0;
         width: 100vw;
         height: 88vh;
         border-top-left-radius: 25px;
