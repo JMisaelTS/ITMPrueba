@@ -84,6 +84,31 @@ const items=[
         
         ]
     },{
+        name:"Licenciaturas",
+        id:"licencia",
+        elementos:[
+            {
+                icono:"fa-door-open",
+                titulo:"Ing. Sisemas"
+            },{
+                icono:"fa-address-book",
+                titulo:"Ing. Mecatronica"
+            },{
+                icono:"fa-calendar-alt",
+                titulo:"Contador Público"
+            },{
+                icono:"fa-users",
+                titulo:"Ing. Mecánica"
+            },{
+                icono:"fa-search-location",
+                titulo:"Eléctrica"
+            },{
+                icono:"fa-building",
+                titulo:"Química"
+            }
+        
+        ]
+    },{
         name:"Estudiantes",
         id:"estudiantes",
         elementos:[
@@ -196,3 +221,50 @@ function enableScroll(){
     window.onscroll = null;
 }
 
+const avisos_imagenes=[
+    {
+        name:"noticia1",
+        url: "img/noticia1.jpg"
+    },{
+        name:"noticia2",
+        url: "img/noticia2.jpg"
+    },{
+        name:"noticia3",
+        url: "img/noticia3.jpg"
+    },
+]
+
+
+const avisos=Array.apply(null,document.querySelectorAll(".carrusel__imagen"))
+let cuadros=Object.values(avisos)
+/* let aux=items.pop()
+    items.unshift(aux) */
+let foco=1
+let limite_suerior=cuadros.length-1
+cuadros.map(i=>i.addEventListener('click',function(e){
+    cambio(cuadros.indexOf(i),'0px','0px',5,'1') 
+    if(cuadros.indexOf(i)==foco){
+        abrir_pdf()
+        return
+    }else if(cuadros.indexOf(i)<foco){
+        cambio(1,'50%','-50px',4,'.8')
+        cambio(limite_suerior,'-50%','-50px',2,'.8')
+        let aux=cuadros.pop()
+        cuadros.unshift(aux)
+    }else{
+        cambio(1,'-100%','-50px',4,'.8')
+        cambio(0,'100%','-50px',2,'.8')
+        let aux=cuadros.shift()
+        cuadros.push(aux)
+    }
+    
+}))
+function cambio(posicion,lado,profundo,z_index=4,opacidad='.6') {
+    cuadros[posicion].style.opacity=opacidad;
+    cuadros[posicion].style.transform="perspective(200px) translateX("+lado+") translateZ("+profundo+")"
+    cuadros[posicion].style.zIndex=z_index; 
+}
+
+function abrir_pdf(){
+    print("aierto")
+}
