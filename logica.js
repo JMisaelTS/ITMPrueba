@@ -5,11 +5,13 @@ const lista=document.querySelector(".encabezado__cuerpo__lista")
 const print=console.log
 let menuDesactivado=true;
 let contador = 0;
-/*funciones sincronas
-asincronas
-callback hell*/
+
 //hamburguesa
 document.querySelector("#icono").addEventListener("click",()=>{
+    hamburguesa_toogle()
+})
+
+function hamburguesa_toogle(){
     let enlaces = document.querySelector("#enlaces");
     let hamburguesa= document.querySelector("#icono");
     if(contador==0){
@@ -23,8 +25,7 @@ document.querySelector("#icono").addEventListener("click",()=>{
         contador = 0
     }
     hamburguesa.classList.toggle("is-active")
-})
-
+}
 const enlace_menu=Array.apply(null,document.querySelectorAll(".link"))
 enlace_menu.map(i=>i.addEventListener('click',function(e){
     activar_ventana(i.lastChild.innerText,i.id)
@@ -132,7 +133,7 @@ const items=[
                 titulo:"Encuentra Empleo"
             },{
                 icono:"fa-building",
-                titulo:"Créditos Comp"
+                titulo:"Créditos Complementarios"
             }
         
         ]
@@ -176,15 +177,6 @@ const items=[
     },
 ]
 
-function activar_ventana(encabezado,id) {
-    document.querySelector(".encabezado__cuerpo").style.visibility="visible"
-    pantalla_negra.style.visibility="visible"
-    pantalla_blanca.style.top="12vh"
-    menuDesactivado=false
-    document.querySelector(".encabezado__cuerpo__titulo").innerText=encabezado
-    Generar_items(id)
-}
-
 function Generar_items(id) {
     const lista=document.querySelector(".encabezado__cuerpo__lista")
     let contador=0
@@ -201,13 +193,29 @@ function Generar_items(id) {
         item.appendChild(item_cuerpo)
         lista.appendChild(item)
     })
+    lista.style.overFlowY = "scroll";
 }
-
+function activar_ventana(encabezado,id) {
+    document.querySelector(".encabezado__cuerpo").style.visibility="visible"
+    pantalla_negra.style.visibility="visible"
+    pantalla_blanca.style.top="10%"
+    document.querySelector('.encabezado__icono').style.display="none"
+    menuDesactivado=false
+    document.querySelector(".encabezado__cuerpo__titulo").innerText=encabezado
+    Generar_items(id)
+    disableScroll()
+}
 function desactivar_ventana() {
     document.querySelector(".encabezado__cuerpo").style.visibility="hidden"
+    if(document.body.clientWidth<=700){
+        document.querySelector('.encabezado__icono').style.display="flex"
+    }else{
+        document.querySelector('.encabezado__icono').style.display="none"
+    }
     pantalla_negra.style.visibility="hidden"
-    pantalla_blanca.style.top="100%"
+    pantalla_blanca.style.top="120%"
     lista.innerHTML=''
+    enableScroll()
 }
 
 
@@ -220,51 +228,35 @@ function disableScroll(){
 function enableScroll(){  
     window.onscroll = null;
 }
-
+function resize() {
+    if (document.body.clientWidth>700) {
+        document.querySelector('.encabezado__icono').style.display="none"
+        document.querySelector('.encabezado__cuerpo__icono').className=("encabezado__cuerpo__icono fas fa-times")
+    }else{
+        desactivar_ventana()
+        document.querySelector('.encabezado__icono').style.display="flex"
+        document.querySelector('.encabezado__cuerpo__icono').className=("encabezado__cuerpo__icono fas fa-arrow-left")
+        enableScroll()   
+    }
+  }
+  
+window.onresize = resize;
 const avisos_imagenes=[
     {
         name:"noticia1",
-        url: "img/noticia1.jpg"
+        url: "img/noticia1.jpg",
+        posicion:0
     },{
         name:"noticia2",
-        url: "img/noticia2.jpg"
+        url: "img/noticia2.jpg",
+        posicion:1
     },{
         name:"noticia3",
-        url: "img/noticia3.jpg"
+        url: "img/noticia3.jpg",
+        posicion:2
     },
 ]
-
-
-const avisos=Array.apply(null,document.querySelectorAll(".carrusel__imagen"))
-let cuadros=Object.values(avisos)
-/* let aux=items.pop()
-    items.unshift(aux) */
-let foco=1
-let limite_suerior=cuadros.length-1
-cuadros.map(i=>i.addEventListener('click',function(e){
-    cambio(cuadros.indexOf(i),'0px','0px',5,'1') 
-    if(cuadros.indexOf(i)==foco){
-        abrir_pdf()
-        return
-    }else if(cuadros.indexOf(i)<foco){
-        cambio(1,'50%','-50px',4,'.8')
-        cambio(limite_suerior,'-50%','-50px',2,'.8')
-        let aux=cuadros.pop()
-        cuadros.unshift(aux)
-    }else{
-        cambio(1,'-100%','-50px',4,'.8')
-        cambio(0,'100%','-50px',2,'.8')
-        let aux=cuadros.shift()
-        cuadros.push(aux)
-    }
-    
-}))
-function cambio(posicion,lado,profundo,z_index=4,opacidad='.6') {
-    cuadros[posicion].style.opacity=opacidad;
-    cuadros[posicion].style.transform="perspective(200px) translateX("+lado+") translateZ("+profundo+")"
-    cuadros[posicion].style.zIndex=z_index; 
+if (document.body.clientWidth>700) {
+    document.querySelector('.encabezado__cuerpo__icono').className=("encabezado__cuerpo__icono fas fa-times")
 }
 
-function abrir_pdf(){
-    print("aierto")
-}
