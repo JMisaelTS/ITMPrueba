@@ -1,0 +1,22 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+    width: 100vw;
+}
+.aviso1_main{
+    width: 80vw;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.aviso1_main h1{
+    text-align: center;
+    color: red;
+}
+
+.aviso1_main h1:first-child{
+    color: green;
+}
+
+.aviso1_main li{
+    margin: 2% 0;
+}
